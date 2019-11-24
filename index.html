@@ -12,7 +12,7 @@
 
         #board {
           position: absolute;
-          top: 50px;
+          top: 59px;
           left: 50px;
         }
         .square {
@@ -34,13 +34,14 @@
 </head>
 <body>
   <button onclick=rollDice()>Roll Dice</button>
+  <p>Open console to know your position</p>
 <div id=board>
 </div>
 
 <canvas id=canvas width="1000" height="1000"></canvas>
 
 <script>
-  //width and height of the board
+
   width = 5;
   height = 4;
 
@@ -53,18 +54,19 @@
 
   let currentPlayer = players[currentPlayerTurn];
 
-  roll = Math.floor(Math.random() * 5 + 1);
+  roll = Math.floor(Math.random() * 6 + 1);
   console.log(currentPlayer.name +", You rolled", roll); //keeping track of rolls
     //incrementing the position after the roll using the dice value
     if(currentPlayer.position === 0 && roll == 1){ //the first turn has to have 1
       currentPlayer.position = 1; //otherwise the position stays as it is
-    console.log("You're at 1!") //logs it that I need a one
+      console.log("You're at 1")
   }else{ //else the # of roll is added to the position of the player
     currentPlayer.position += roll;
+      console.log("You're at " + currentPlayer.position)
     ladders.forEach(ladder => { //looping through each ladder
       //if the starting of the ladder is equal to player's position
       if (ladder.start === currentPlayer.position) {
-        console.log("yay"); //print this on the screen
+        console.log("Snake is green, ladder is white"); //print this on the screen
         currentPlayer.position = ladder.end; //step to the end of the ladder
       }
     });
@@ -92,7 +94,7 @@
   };
 
   //two players
-  players = [{name: "P1",position: 0,color: "gold"},{name: "P2",position: 0,color: "brown"}];
+  players = [{name: "P1(gold)",position: 0,color: "gold"},{name: "P2(maroon)",position: 0,color: "brown"}];
 
   let currentPlayerTurn = 0;
 
@@ -176,17 +178,6 @@
     ctx.strokeStyle = color;
     ctx.stroke();
 
-    //
-    // var snakeImage = new Image();
-    // var ladderImage = new Image();
-
-    // snakeImage.onload = function(){
-    //   ctx.save();
-    //   ctx.globalCompositeOperation = `source-atop`;
-    //   ctx.drawImage(snakeImage,0,0);
-    //   ctx.restore()
-    // };
-    // snakeImage.src = 'snake.png';
 
   }
   drawBoard();
@@ -196,3 +187,4 @@
 </body>
 <script  src="SnL.js"></script>
 </html>
+
